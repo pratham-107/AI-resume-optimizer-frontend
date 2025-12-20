@@ -203,13 +203,14 @@ export default function AnalysisPage() {
                     </CardHeader>
                     <CardContent>
                         {analysis.missingSkills && analysis.missingSkills.length > 0 ? (
-                            <div className="flex flex-wrap gap-2">
+                            <ul className="space-y-3">
                                 {analysis.missingSkills.map((skill, index) => (
-                                    <Badge key={index} variant="secondary" className="py-1 px-3">
-                                        {skill}
-                                    </Badge>
+                                    <li key={index} className="flex items-start">
+                                        <span className="text-primary mr-2">•</span>
+                                        <span className="text-sm">{skill}</span>
+                                    </li>
                                 ))}
-                            </div>
+                            </ul>
                         ) : (
                             <p className="text-muted-foreground">No missing skills detected!</p>
                         )}
