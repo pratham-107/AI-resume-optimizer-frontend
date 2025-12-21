@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Sparkles, Upload, Target, FileText, ArrowRight, ChevronDown } from 'lucide-react';
+import { SparklesText } from '@/components/ui/sparkles-text';
+import InfiniteCardCarousel from '@/components/ui/infinite-card-carousel';
 
 export default function LandingPage() {
     const navigate = useNavigate();
@@ -53,10 +55,13 @@ export default function LandingPage() {
                         </div>
                     </div>
 
-                    <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
-                        Transform Your
-                        <span className="text-primary"> Resume</span>
-                    </h1>
+                    <SparklesText
+                        className="text-5xl md:text-6xl font-bold mb-6 leading-tight"
+                        colors={{ first: "#9E7AFF", second: "#FE8BBB" }}
+                        sparklesCount={15}
+                    >
+                        Transform Your Resume
+                    </SparklesText>
 
                     <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
                         Get AI-powered insights to optimize your resume for any job position.
@@ -99,73 +104,8 @@ export default function LandingPage() {
                 </div>
             </div>
 
-            {/* Features Section */}
-            <div id="features" className="py-20 bg-card">
-                <div className="max-w-6xl mx-auto px-4">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-                            Why Choose Our AI Resume Optimizer?
-                        </h2>
-                        <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-                            We combine cutting-edge AI technology with resume expertise to give you
-                            the competitive edge in today's job market.
-                        </p>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        {/* Feature 1 */}
-                        <Card className="border-border hover:shadow-lg transition-all duration-300">
-                            <CardHeader>
-                                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                                    <Target className="h-6 w-6 text-primary" />
-                                </div>
-                                <CardTitle className="text-lg">ATS Optimization</CardTitle>
-                                <CardDescription>Optimize for Applicant Tracking Systems</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-sm text-muted-foreground">
-                                    Our AI analyzes your resume against industry-standard ATS algorithms
-                                    to ensure it passes automated screening processes.
-                                </p>
-                            </CardContent>
-                        </Card>
-
-                        {/* Feature 2 */}
-                        <Card className="border-border hover:shadow-lg transition-all duration-300">
-                            <CardHeader>
-                                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                                    <FileText className="h-6 w-6 text-primary" />
-                                </div>
-                                <CardTitle className="text-lg">Skill Matching</CardTitle>
-                                <CardDescription>Identify missing skills and keywords</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-sm text-muted-foreground">
-                                    Compare your resume against job descriptions to identify missing
-                                    skills, keywords, and areas for improvement.
-                                </p>
-                            </CardContent>
-                        </Card>
-
-                        {/* Feature 3 */}
-                        <Card className="border-border hover:shadow-lg transition-all duration-300">
-                            <CardHeader>
-                                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                                    <Sparkles className="h-6 w-6 text-primary" />
-                                </div>
-                                <CardTitle className="text-lg">Expert Insights</CardTitle>
-                                <CardDescription>Get actionable recommendations</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-sm text-muted-foreground">
-                                    Receive personalized, actionable suggestions to enhance your
-                                    resume's effectiveness and impact.
-                                </p>
-                            </CardContent>
-                        </Card>
-                    </div>
-                </div>
-            </div>
+            {/* Features Section - Infinite Carousel */}
+            <InfiniteCardCarousel />
 
             {/* CTA Section */}
             <div className="py-20 bg-background border-t border-border">

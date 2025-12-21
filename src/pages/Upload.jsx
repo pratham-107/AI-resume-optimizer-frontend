@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Upload, FileText, Target, Sparkles } from 'lucide-react';
 import { LogOut } from 'lucide-react';
+import { SparklesText } from '@/components/ui/sparkles-text';
 
 export default function HomePage() {
     const [resumeFile, setResumeFile] = useState(null);
@@ -65,10 +66,13 @@ export default function HomePage() {
         <div className="container mx-auto px-4 py-8 max-w-4xl">
             <div className="flex justify-between items-center mb-8">
                 <div className="text-center flex-1">
-                    <h1 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
-                        <Sparkles className="h-8 w-8 text-black" />
+                    <SparklesText
+                        className="text-4xl font-bold mb-4 flex items-center justify-center gap-3"
+                        colors={{ first: "#9E7AFF", second: "#FE8BBB" }}
+                        sparklesCount={12}
+                    >
                         AI Resume Optimizer
-                    </h1>
+                    </SparklesText>
                     <p className="text-lg text-muted-foreground">
                         Optimize your resume for any job position with AI-powered insights
                     </p>
@@ -163,7 +167,10 @@ export default function HomePage() {
             <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Card>
                     <CardHeader>
-                        <CardTitle>ATS Optimization</CardTitle>
+                        <CardTitle className="flex items-center gap-3">
+                            <Target className="h-6 w-6 text-primary" />
+                            ATS Optimization
+                        </CardTitle>
                     </CardHeader>
                     <CardContent>
                         <p className="text-muted-foreground">
@@ -174,7 +181,10 @@ export default function HomePage() {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle>Skill Matching</CardTitle>
+                        <CardTitle className="flex items-center gap-3">
+                            <FileText className="h-6 w-6 text-primary" />
+                            Skill Matching
+                        </CardTitle>
                     </CardHeader>
                     <CardContent>
                         <p className="text-muted-foreground">
@@ -185,7 +195,10 @@ export default function HomePage() {
 
                 <Card>
                     <CardHeader>
-                        <CardTitle>Expert Insights</CardTitle>
+                        <CardTitle className="flex items-center gap-3">
+                            <Sparkles className="h-6 w-6 text-primary" />
+                            Expert Insights
+                        </CardTitle>
                     </CardHeader>
                     <CardContent>
                         <p className="text-muted-foreground">

@@ -38,8 +38,8 @@ const FloatingNav = () => {
   const DATA = {
     navbar: [
       { href: "/", icon: Home, label: "Home" },
-      { href: "/history", icon: History, label: "History" },
       { href: "/upload", icon: Upload, label: "Upload" },
+      { href: "/history", icon: History, label: "History" },
     ],
     userActions: [
       {
