@@ -61,12 +61,6 @@ export default function HomePage() {
         }
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        navigate('/login')
-    }
-
     return (
         <div className="container mx-auto px-4 py-8 max-w-4xl">
             <div className="flex justify-between items-center mb-8">
@@ -79,14 +73,6 @@ export default function HomePage() {
                         Optimize your resume for any job position with AI-powered insights
                     </p>
                 </div>
-                <Button
-                    variant="outline"
-                    onClick={handleLogout}
-                    className="flex items-center gap-2"
-                >
-                    <LogOut className="h-4 w-4" />
-                    Logout
-                </Button>
             </div>
 
             <Card className="shadow-lg">

@@ -18,9 +18,7 @@ import { login } from "../services/auth";
 export default function Login() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
-    const [tempVisible, setTempVisible] = useState(false);
 
     const [formData, setFormData] = useState({
         email: "",
@@ -44,23 +42,6 @@ export default function Login() {
             setLoading(false);
         }
     };
-
-    const handlePasswordChange = (e) => {
-        const value = e.target.value;
-
-        setPassword(value);
-        setFormData({ ...formData, password: value });
-
-        //show last type character briefly
-        setTempVisible(true);
-
-        setTimeout(() => {
-            setTempVisible(false);
-        }, 600);
-    }
-
-    const inputType =
-        showPassword || tempVisible ? "text" : "password";
 
 
     return (
@@ -93,11 +74,11 @@ export default function Login() {
                             <div className="relative">
                                 <Input
                                     id="password"
-                                    type={inputType}
-                                    value={password}
-                                    onChange={handlePasswordChange}
+                                    name="password"
+                                    type={showPassword ? "text" : "password"}
                                     placeholder="Enter your password"
-                                    className="pr-10"
+                                    onChange={handleChange}
+                                    required
                                 />
 
                                 <button
