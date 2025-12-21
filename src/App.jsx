@@ -4,6 +4,8 @@ import HomePage from "./pages/HomePage";
 import AnalysisPage from "./pages/AnalysisPage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import History from "./pages/History";
+import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/ProtectedRoute";
 import FloatingNav from "./components/FloatingNav";
 
@@ -42,11 +44,10 @@ function App() {
             path="/history"
             element={
               <ProtectedRoute>
-                <div className="text-center py-8">
-                  <h2 className="text-2xl font-bold">History Page</h2>
-                  <p className="text-muted-foreground mt-2">Your resume analysis history will be displayed here.</p>
-                </div>
-                <FloatingNav />
+                <>
+                  <History />
+                  <FloatingNav />
+                </>
               </ProtectedRoute>
             }
           />
@@ -55,11 +56,10 @@ function App() {
             path="/profile"
             element={
               <ProtectedRoute>
-                <div className="text-center py-8">
-                  <h2 className="text-2xl font-bold">Profile Page</h2>
-                  <p className="text-muted-foreground mt-2">Your profile information will be displayed here.</p>
-                </div>
-                <FloatingNav />
+                <>
+                  <Profile />
+                  <FloatingNav />
+                </>
               </ProtectedRoute>
             }
           />
@@ -74,3 +74,4 @@ function App() {
 }
 
 export default App;
+
