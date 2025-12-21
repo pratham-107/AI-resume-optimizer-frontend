@@ -1,73 +1,73 @@
-// API service for AI Resume Optimizer
+import axios from 'axios';
 
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
 
+// Create axios instance with default config
+const api = axios.create({
+  baseURL: API_BASE_URL,
+});
+
+// Add request interceptor to include token
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 /**
  * Upload resume and get analysis
- * @param {FormData} formData - Form data containing resume file and job description
- * @returns {Promise<Object>} Analysis results
  */
 export async function uploadResume(formData) {
   try {
-    const response = await fetch(`${API_BASE_URL}/resumes/upload`, {
-      method: "POST",
-      body: formData,
+    console.log("Token:", localStorage.getItem("token"));
+
+    const response = await api.post('/resumes/upload', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
 
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to upload resume");
-    }
-
-    return await response.json();
+    return response.data;
   } catch (error) {
     console.error("Upload error:", error);
-    throw error;
+    throw new Error(error.response?.data?.message || "Failed to upload resume");
   }
 }
 
 /**
  * Get resume analysis by ID
- * @param {string} id - Resume ID
- * @returns {Promise<Object>} Resume analysis data
  */
 export async function getResumeAnalysis(id) {
   try {
-    const response = await fetch(`${API_BASE_URL}/resumes/${id}`);
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to fetch resume analysis");
-    }
-
-    return await response.json();
+    const response = await api.get(`/resumes/${id}`);
+    return response.data;
   } catch (error) {
-    console.error("Fetch error:", error);
-    throw error;
+    throw new Error(error.response?.data?.message || "Resume not found");
   }
 }
 
 /**
- * Get all resumes (paginated)
- * @param {number} page - Page number (default: 1)
- * @param {number} limit - Items per page (default: 10)
- * @returns {Promise<Object>} Paginated resumes data
+ * Get all resumes (history)
  */
 export async function getAllResumes(page = 1, limit = 10) {
   try {
-    const response = await fetch(
-      `${API_BASE_URL}/resumes?page=${page}&limit=${limit}`
-    );
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to fetch resumes");
-    }
-
-    return await response.json();
+    const response = await api.get('/resumes', {
+      params: {
+        page,
+        limit
+      }
+    });
+    return response.data;
   } catch (error) {
     console.error("Fetch error:", error);
-    throw error;
+    throw new Error(error.response?.data?.message || "Failed to fetch resumes");
   }
 }
