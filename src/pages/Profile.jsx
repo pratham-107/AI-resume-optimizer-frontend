@@ -9,27 +9,27 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { LogOut, User } from "lucide-react";
 
 export default function Profile() {
     const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem("user")) || {};
+    const user = JSON.parse(sessionStorage.getItem("user")) || {};
 
     const [name, setName] = useState(user.name || "");
     const [email] = useState(user.email || "");
 
     const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("user");
         navigate("/login");
     };
 
     const handleUpdateProfile = () => {
         // connect API later
         const updatedUser = { ...user, name };
-        localStorage.setItem("user", JSON.stringify(updatedUser));
+        sessionStorage.setItem("user", JSON.stringify(updatedUser));
         alert("Profile updated successfully!");
     };
 
@@ -47,6 +47,7 @@ export default function Profile() {
             <Card className="mt-5 px-5">
                 <CardHeader className="flex flex-row items-center gap-4 ">
                     <Avatar className="h-16 w-16">
+                        <AvatarImage src="https://github.com/shadcn.png" alt={name || "User"} />
                         <AvatarFallback className="text-xl">
                             {name?.charAt(0)?.toUpperCase() || <User />}
                         </AvatarFallback>

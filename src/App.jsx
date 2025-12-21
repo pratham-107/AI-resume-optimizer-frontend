@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
-import HomePage from "./pages/HomePage";
+import LandingPage from "./pages/LandingPage";
+import Upload from "./pages/Upload";
 import AnalysisPage from "./pages/AnalysisPage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
@@ -16,12 +17,22 @@ function App() {
       <div className="min-h-screen bg-background text-foreground">
         <Routes>
           {/* Protected routes */}
+          <Route path="/" element={
+            <>
+              <LandingPage />
+              <FloatingNav />
+            </>
+          } />
+
+          {/* Protected routes */}
+
+          {/* Protected routes */}
           <Route
-            path="/"
+            path="/upload"
             element={
               <ProtectedRoute>
                 <>
-                  <HomePage />
+                  <Upload />
                   <FloatingNav />
                 </>
               </ProtectedRoute>

@@ -11,7 +11,7 @@ const api = axios.create({
 // Add request interceptor to include token
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -27,7 +27,7 @@ api.interceptors.request.use(
  */
 export async function uploadResume(formData) {
   try {
-    console.log("Token:", localStorage.getItem("token"));
+    console.log("Token:", sessionStorage.getItem("token"));
 
     const response = await api.post('/resumes/upload', formData, {
       headers: {

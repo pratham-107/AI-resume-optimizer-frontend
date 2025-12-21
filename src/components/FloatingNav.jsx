@@ -19,17 +19,50 @@ import {
   LogOut,
   Upload,
 } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 const FloatingNav = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Check if user is authenticated
+  const token = sessionStorage.getItem("token");
+  const user = JSON.parse(sessionStorage.getItem("user")) || {};
+  const userName = user.name || "User";
+
+  // Don't show nav if user is not authenticated
+  if (!token) {
+    return null;
+  }
+
   const DATA = {
     navbar: [
       { href: "/", icon: Home, label: "Home" },
       { href: "/history", icon: History, label: "History" },
-      { href: "/profile", icon: User, label: "Profile" },
-      { href: "/", icon: Upload, label: "Upload" },
+      { href: "/upload", icon: Upload, label: "Upload" },
+    ],
+    userActions: [
+      {
+        href: "/profile",
+        label: "Profile",
+        customIcon: (
+          <Avatar className="h-8 w-8">
+            <AvatarImage src="https://github.com/shadcn.png" alt={userName} />
+            <AvatarFallback className="text-sm">
+              {userName?.charAt(0)?.toUpperCase() || "U"}
+            </AvatarFallback>
+          </Avatar>
+        )
+      },
+      {
+        name: "Logout",
+        onClick: () => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          navigate('/login');
+        },
+        icon: LogOut
+      },
     ],
     actions: [
       {
@@ -74,23 +107,27 @@ const FloatingNav = () => {
             </DockIcon>
           ))}
           <Separator orientation="vertical" className="h-full" />
-          {DATA.actions.map((action) => (
-            <DockIcon key={action.name}>
+          {DATA.userActions.map((item) => (
+            <DockIcon key={item.label || item.name}>
               <Tooltip>
                 <TooltipTrigger asChild>
                   <button
-                    onClick={action.onClick}
-                    aria-label={action.name}
+                    onClick={item.onClick || (() => navigate(item.href))}
+                    aria-label={item.label || item.name}
                     className={cn(
                       buttonVariants({ variant: "ghost", size: "icon" }),
                       "size-12 rounded-full"
                     )}
                   >
-                    <action.icon className="size-4" />
+                    {item.customIcon ? (
+                      item.customIcon
+                    ) : (
+                      <item.icon className="size-4" />
+                    )}
                   </button>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <p>{action.name}</p>
+                  <p>{item.label || item.name}</p>
                 </TooltipContent>
               </Tooltip>
             </DockIcon>

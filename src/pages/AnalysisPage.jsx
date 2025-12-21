@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { ChevronLeft, Download, RefreshCw, FileText, Target } from 'lucide-react';
+import { ChevronLeft, Download, RefreshCw, FileText, Target, Building, Briefcase } from 'lucide-react';
 
 export default function AnalysisPage() {
     const { id } = useParams();
@@ -81,7 +81,7 @@ export default function AnalysisPage() {
         );
     }
 
-    const { analysis, fileName, uploadedAt, jobRole } = analysisData;
+    const { analysis, fileName, uploadedAt } = analysisData;
 
     return (
         <div className="container mx-auto px-4 py-8 max-w-6xl">
@@ -145,6 +145,43 @@ export default function AnalysisPage() {
                             </Badge>
                         </div>
                         <Progress value={analysis.suitabilityPercentage} className="h-3" />
+                    </CardContent>
+                </Card>
+            </div>
+
+            {/* Job Information */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <Building className="h-5 w-5" />
+                            Company Name
+                        </CardTitle>
+                        <CardDescription>
+                            Extracted from the job description
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-lg font-semibold">
+                            {analysis.companyName || 'Not provided by user'}
+                        </p>
+                    </CardContent>
+                </Card>
+
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="flex items-center gap-2">
+                            <Briefcase className="h-5 w-5" />
+                            Job Role
+                        </CardTitle>
+                        <CardDescription>
+                            Extracted from the job description
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                        <p className="text-lg font-semibold">
+                            {analysis.role || 'Not provided by user'}
+                        </p>
                     </CardContent>
                 </Card>
             </div>

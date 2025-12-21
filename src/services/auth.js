@@ -32,6 +32,15 @@ export async function login(data) {
             },
         });
 
+        // Store tokens in sessionStorage instead of localStorage
+        // This ensures user has to login again when tab is closed
+        if (response.data.token) {
+            sessionStorage.setItem("token", response.data.token);
+        }
+        if (response.data.user) {
+            sessionStorage.setItem("user", JSON.stringify(response.data.user));
+        }
+
         return response.data;
     } catch (error) {
         throw new Error(error.response?.data?.message || "Login Failed");
@@ -40,6 +49,6 @@ export async function login(data) {
 
 //LOGOUT USER
 export function logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
 }
