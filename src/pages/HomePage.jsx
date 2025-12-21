@@ -7,6 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Upload, FileText, Target, Sparkles } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 
 export default function HomePage() {
     const [resumeFile, setResumeFile] = useState(null);
@@ -60,16 +61,32 @@ export default function HomePage() {
         }
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        navigate('/login')
+    }
+
     return (
         <div className="container mx-auto px-4 py-8 max-w-4xl">
-            <div className="text-center mb-12">
-                <h1 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
-                    <Sparkles className="h-8 w-8 text-black" />
-                    AI Resume Optimizer
-                </h1>
-                <p className="text-lg text-muted-foreground">
-                    Optimize your resume for any job position with AI-powered insights
-                </p>
+            <div className="flex justify-between items-center mb-8">
+                <div className="text-center flex-1">
+                    <h1 className="text-4xl font-bold mb-4 flex items-center justify-center gap-3">
+                        <Sparkles className="h-8 w-8 text-black" />
+                        AI Resume Optimizer
+                    </h1>
+                    <p className="text-lg text-muted-foreground">
+                        Optimize your resume for any job position with AI-powered insights
+                    </p>
+                </div>
+                <Button
+                    variant="outline"
+                    onClick={handleLogout}
+                    className="flex items-center gap-2"
+                >
+                    <LogOut className="h-4 w-4" />
+                    Logout
+                </Button>
             </div>
 
             <Card className="shadow-lg">
