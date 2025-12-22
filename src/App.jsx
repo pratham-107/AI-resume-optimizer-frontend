@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import LandingPage from "./pages/LandingPage";
 import Upload from "./pages/Upload";
 import AnalysisPage from "./pages/AnalysisPage";
+import CoverLetterPage from "./pages/CoverLetterPage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import History from "./pages/History";
@@ -69,6 +70,18 @@ function App() {
               <ProtectedRoute>
                 <>
                   <Profile />
+                  <FloatingNav />
+                </>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/cover-letter/:id"
+            element={
+              <ProtectedRoute>
+                <>
+                  <CoverLetterPage />
                   <FloatingNav />
                 </>
               </ProtectedRoute>

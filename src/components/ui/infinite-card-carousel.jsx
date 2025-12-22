@@ -52,7 +52,7 @@ export default function InfiniteCardCarousel() {
     // Auto-play functionality
     useEffect(() => {
         autoplayRef.current = setInterval(() => {
-            handleNext();
+            setCurrentIndex((prev) => prev + 1);
         }, 2000);
 
         return () => {

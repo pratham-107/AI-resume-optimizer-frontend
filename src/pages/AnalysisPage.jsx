@@ -6,7 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { ChevronLeft, Download, RefreshCw, FileText, Target, Building, Briefcase } from 'lucide-react';
+import { ChevronLeft, Download, RefreshCw, FileText, Target, Building, Briefcase, Mail } from 'lucide-react';
+import { generateCoverLetter } from '../services/coverLetter';
 
 export default function AnalysisPage() {
     const { id } = useParams();
@@ -14,6 +15,7 @@ export default function AnalysisPage() {
     const [analysisData, setAnalysisData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [generatingCoverLetter, setGeneratingCoverLetter] = useState(false);
 
     useEffect(() => {
         const fetchAnalysis = async () => {
@@ -37,6 +39,25 @@ export default function AnalysisPage() {
             fetchAnalysis();
         }
     }, [id]);
+
+    // Handle cover letter generation
+    const handleGenerateCoverLetter = async () => {
+        if (!analysisData) return;
+
+        try {
+            setGeneratingCoverLetter(true);
+            const response = await generateCoverLetter(analysisData.resumeId || id);
+
+            if (response.status === 'success') {
+                // Navigate to cover letter page
+                navigate(`/cover-letter/${response.data.coverLetterId}`);
+            }
+        } catch (error) {
+            setError(error.message || 'Failed to generate cover letter');
+        } finally {
+            setGeneratingCoverLetter(false);
+        }
+    };
 
     if (loading) {
         return (
@@ -278,6 +299,23 @@ export default function AnalysisPage() {
 
             {/* Action Buttons */}
             <div className="flex flex-wrap gap-4 mt-8">
+                <Button
+                    onClick={handleGenerateCoverLetter}
+                    disabled={generatingCoverLetter}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                >
+                    {generatingCoverLetter ? (
+                        <>
+                            <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                            Generating...
+                        </>
+                    ) : (
+                        <>
+                            <Mail className="h-4 w-4 mr-2" />
+                            Generate Cover Letter
+                        </>
+                    )}
+                </Button>
                 <Button onClick={() => window.print()}>
                     <Download className="h-4 w-4 mr-2" />
                     Download Report
