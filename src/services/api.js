@@ -27,7 +27,7 @@ api.interceptors.request.use(
  */
 export async function uploadResume(formData) {
   try {
-    console.log("Token:", sessionStorage.getItem("token"));
+    // Token logging disabled in production
 
     const response = await api.post('/resumes/upload', formData, {
       headers: {
@@ -37,7 +37,7 @@ export async function uploadResume(formData) {
 
     return response.data;
   } catch (error) {
-    console.error("Upload error:", error);
+    // Upload error logging disabled in production
     throw new Error(error.response?.data?.message || "Failed to upload resume");
   }
 }
@@ -67,7 +67,7 @@ export async function getAllResumes(page = 1, limit = 10) {
     });
     return response.data;
   } catch (error) {
-    console.error("Fetch error:", error);
+    // Fetch error logging disabled in production
     throw new Error(error.response?.data?.message || "Failed to fetch resumes");
   }
 }
