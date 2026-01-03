@@ -149,7 +149,7 @@ src/
 3. **Environment Configuration**
    Create a `.env` file in the root directory:
    ```env
-   VITE_API_BASE_URL=https://ai-resume-optimizer-backend-vv41.onrender.com/api
+   VITE_API_BASE_URL=
    ```
 
 4. **Start development server**
